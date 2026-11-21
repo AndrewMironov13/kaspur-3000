@@ -15,13 +15,14 @@
 <link rel="icon" href="/kaspur-3000/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/kaspur-3000/apple-touch-icon.png">
 <meta name="theme-color" content="#CCD2EA">
-<script>/* гамма: ?t=lilac|rose|olive|sand|blue|dark; по умолчанию сиреневая */(function(){var t=new URLSearchParams(location.search).get("t")||"lilac";var d=document.documentElement;d.dataset.t=t;if(t!=="dark"&&t!=="blue")d.classList.add("lt")})()</script>
+<script>/* гаммы для согласования */(function(){var t=new URLSearchParams(location.search).get("t");if(!["lilac","rose","olive","sand","blue","dark"].includes(t))t="lilac";var d=document.documentElement;d.dataset.t=t;if(t!=="dark"&&t!=="blue")d.classList.add("lt")})()</script>
 <link rel="preload" href="/kaspur-3000/fonts/alumni-cyrillic-900.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/kaspur-3000/fonts/alumni-latin-900.woff2" as="font" type="font/woff2" crossorigin>
-  <script type="module" crossorigin src="/kaspur-3000/assets/index-Dw8wLTpN.js"></script>
-  <link rel="stylesheet" crossorigin href="/kaspur-3000/assets/index-8TSa01tv.css">
+  <script type="module" crossorigin src="/kaspur-3000/assets/index-C6FIuMkZ.js"></script>
+  <link rel="stylesheet" crossorigin href="/kaspur-3000/assets/index-BpeAKg7P.css">
 </head>
 <body>
+<a class="skip" href="#top">К содержанию</a>
 <header id="hd" class="dark">
   <div class="wrap hd-in">
     <a class="pill logo" href="#top" aria-label="CASPOL"><img src="/kaspur-3000/img/logo-caspol.svg" alt="CASPOL" width="123" height="20"></a>
@@ -39,9 +40,9 @@
     <h1 class="h1x"><span class="mega" aria-hidden="true">КАСПУР<span class="m3"> 3000</span></span><span class="sr">КАСПУР 3000 БАЗИС — полиуретановая основа для герметиков, мастик и клеев</span></h1>
     <img class="hero-pack" id="hero-pack" src="/kaspur-3000/img/pair.webp" alt="Бочка и еврокуб с полиуретановой основой КАСПУР 3000 БАЗИС" width="1700" height="1263" fetchpriority="high" decoding="async">
     <div class="hero-l">
-      <p class="kick"><b>БАЗИС</b> полиуретановая основа</p>
-      <p class="lead">Основа для герметиков, мастик и&nbsp;клеев</p>
-      <p class="sub">MDI-преполимер, 80&nbsp;% в&nbsp;пластификаторе. Отгружаем бочками по&nbsp;200&nbsp;кг и&nbsp;еврокубами</p>
+      <p class="kick"><b>3000 БАЗИС</b><span>Для производителей</span></p>
+      <p class="lead">Полиуретановая основа для герметиков, мастик и&nbsp;клеев</p>
+      <p class="sub">MDI-преполимер, 80&nbsp;% в&nbsp;пластификаторе. Для производства однокомпонентных составов</p>
       <div class="acts">
         <a class="btn" href="#order" data-want="sample">Запросить образец<span class="arr"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg></span></a>
         <a class="btn ghost" href="#order" data-want="drum">Узнать цену</a>
@@ -60,15 +61,18 @@
   </div>
 </main>
 
+<!-- В демо здесь доступен выбор гаммы; панель не перекрывает страницу -->
+<div class="wrap" id="demo-options"></div>
+
 <!-- Тара: вкладки, карточка перекрашивается, тара меняется -->
 <section class="sec" id="tara" aria-labelledby="tara-h">
   <div class="wrap">
-    <h2 class="sec-title" id="tara-h" data-reveal>Тара под ваш объём</h2>
-    <div class="tabs" role="tablist" aria-label="Тара" data-reveal>
+    <h2 class="sec-title" id="tara-h">Тара под ваш объём</h2>
+    <div class="tabs" role="tablist" aria-label="Тара">
       <button class="tab" role="tab" id="tab-drum" aria-selected="true" aria-controls="tara-card" data-tara="drum">Бочка 200&nbsp;кг<sup>(01)</sup></button>
       <button class="tab" role="tab" id="tab-cube" aria-selected="false" aria-controls="tara-card" data-tara="cube" tabindex="-1">Еврокуб 1000&nbsp;кг<sup>(02)</sup></button>
     </div>
-    <div class="tara" data-reveal>
+    <div class="tara">
       <div class="tara-card" id="tara-card" role="tabpanel" aria-labelledby="tab-drum" style="--tone:var(--ta)">
         <div>
           <h3 class="tara-name" id="tara-name">Бочка</h3>
@@ -82,6 +86,7 @@
         <div class="tara-act">
           <a class="btn light" id="tara-btn" href="#order" data-want="drum">Узнать цену на&nbsp;бочки<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg></a>
           <a class="tara-link" href="#order" data-want="sample">Нужна проба? Отправим образец</a>
+          <button class="tara-link label-open" id="label-open" type="button" aria-haspopup="dialog">Рассмотреть этикетку</button>
         </div>
       </div>
       <div class="tara-view" aria-hidden="true">
@@ -89,19 +94,20 @@
         <img class="tv" data-view="cube" src="/kaspur-3000/img/cube.webp" alt="" width="1500" height="1463" loading="lazy" decoding="async">
       </div>
     </div>
+    <p class="render-note">Визуализация тары и&nbsp;проект этикеток</p>
   </div>
 </section>
 
 <!-- Характеристики -->
 <section class="sec" id="spec" aria-labelledby="spec-h">
   <div class="wrap spec-grid">
-    <div class="spec-head" data-reveal>
-      <h2 class="sec-title" id="spec-h">Характе&shy;ристики по&nbsp;ТУ</h2>
+    <div class="spec-head">
+      <h2 class="sec-title" id="spec-h">Показатели по&nbsp;ТУ</h2>
       <p class="spec-tu">ТУ&nbsp;20.16.56-009-40544164-2025</p>
       <a class="btn ghost" href="docs/kaspur-3000-bazis-tds.pdf" target="_blank" rel="noopener">Техническое описание, PDF</a>
-      <figure class="spec-ph"><img src="/kaspur-3000/img/macro.webp" alt="Полиуретановая основа: вязкая светло-жёлтая жидкость стекает с лопатки" width="1500" height="844" loading="lazy" decoding="async"></figure>
+      <figure class="spec-ph"><img src="/kaspur-3000/img/macro.webp" alt="Визуализация вязкой светло-жёлтой жидкости" width="1500" height="844" loading="lazy" decoding="async"><figcaption>Иллюстрация консистенции</figcaption></figure>
     </div>
-    <div class="spec-card" data-reveal>
+    <div class="spec-card">
       <table class="spec">
         <thead><tr><th scope="col">Показатель</th><th scope="col">Значение</th><th scope="col">Метод</th></tr></thead>
         <tbody>
@@ -119,14 +125,14 @@
 <!-- Переработка: четыре шага -->
 <section class="sec" id="how" aria-labelledby="how-h">
   <div class="wrap">
-    <h2 class="sec-title" id="how-h" data-reveal>Как перерабатывать</h2>
+    <h2 class="sec-title" id="how-h">Как перерабатывать</h2>
     <ol class="steps">
-      <li class="step" data-reveal><span class="n">01</span><h3>Выдержите в&nbsp;тепле</h3><p>Сутки при +20±5&nbsp;°С перед вскрытием. Выше +50&nbsp;°С не&nbsp;нагревать</p></li>
-      <li class="step" data-reveal><span class="n">02</span><h3>Осушите компоненты</h3><p>Пластификаторы, наполнители и&nbsp;добавки: влаги не&nbsp;больше 0,05&nbsp;%. Наполнители сушат при 110&nbsp;°С от&nbsp;4&nbsp;часов</p></li>
-      <li class="step" data-reveal><span class="n">03</span><h3>Смешайте под вакуумом</h3><p>Вакуумный смеситель, остаточное давление 10–20&nbsp;мбар</p></li>
-      <li class="step" data-reveal><span class="n">04</span><h3>Катализатор в&nbsp;конце</h3><p>Катализаторы и&nbsp;отвердители вводят последними, прямо перед фасовкой</p></li>
+      <li class="step"><span class="n">01</span><h3>Выдержите в&nbsp;тепле</h3><p>Сутки при +20±5&nbsp;°С перед вскрытием. Выше +50&nbsp;°С не&nbsp;нагревать</p></li>
+      <li class="step"><span class="n">02</span><h3>Осушите компоненты</h3><p>Пластификаторы, наполнители и&nbsp;добавки: влаги не&nbsp;больше 0,05&nbsp;%. Наполнители сушат при 110&nbsp;°С от&nbsp;4&nbsp;часов</p></li>
+      <li class="step"><span class="n">03</span><h3>Смешайте под вакуумом</h3><p>Вакуумный смеситель, остаточное давление 10–20&nbsp;мбар</p></li>
+      <li class="step"><span class="n">04</span><h3>Катализатор в&nbsp;конце</h3><p>Катализаторы и&nbsp;отвердители вводят последними, прямо перед фасовкой</p></li>
     </ol>
-    <p class="how-foot" data-reveal>Готовая композиция отверждается влагой воздуха: слой <span class="nw">2–3&nbsp;мм</span> за&nbsp;48&nbsp;часов при 23&nbsp;°С и&nbsp;влажности 50–70&nbsp;%</p>
+    <p class="how-foot">Готовая композиция отверждается влагой воздуха: слой <span class="nw">2–3&nbsp;мм</span> — не&nbsp;менее 48&nbsp;часов при (23±2)&nbsp;°С и&nbsp;влажности 50–70&nbsp;%</p>
   </div>
 </section>
 
@@ -142,18 +148,18 @@
       </div>
     </div>
     <ul class="why-list" role="list">
-      <li class="why-it" data-reveal>
+      <li class="why-it">
         <figure class="why-ph lab"><img src="/kaspur-3000/img/label-drum.webp" alt="Этикетка КАСПУР 3000 БАЗИС: характеристики, меры безопасности, партия и дата" width="1800" height="720" loading="lazy" decoding="async"></figure>
         <div class="why-cap"><span class="ic" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 8h22v24H9z"/><path d="M14 15h12M14 20h12M14 25h7"/></svg></span><div><h3>Партия и&nbsp;дата на&nbsp;каждой бочке</h3><p>На&nbsp;этикетке характеристики, номер партии, дата изготовления и&nbsp;масса нетто</p></div></div>
       </li>
-      <li class="why-it" data-reveal>
+      <li class="why-it">
         <div class="why-cap solo"><span class="ic" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7h8M17 7v9L9 30a3 3 0 0 0 2.6 4.5h16.8A3 3 0 0 0 31 30l-8-14V7"/><path d="M12.5 25h15"/></svg></span><div><h3>Проверяем по&nbsp;ТУ</h3><p>Вязкость по&nbsp;Брукфильду, плотность и&nbsp;долю изоцианатных групп меряем по&nbsp;ГОСТ и&nbsp;ТУ&nbsp;20.16.56-009-40544164-2025</p></div></div>
       </li>
-      <li class="why-it" data-reveal>
+      <li class="why-it">
         <figure class="why-ph tint"><img src="/kaspur-3000/img/cube.webp" alt="Еврокуб с КАСПУР 3000 БАЗИС" width="1500" height="1463" loading="lazy" decoding="async"></figure>
-        <div class="why-cap"><span class="ic" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6c5 7 9 11 9 16a9 9 0 0 1-18 0c0-5 4-9 9-16z"/><path d="M8 34 32 8"/></svg></span><div><h3>Влага не&nbsp;попадёт до&nbsp;вашего смесителя</h3><p>Бочки и&nbsp;еврокубы с&nbsp;уплотнительным кольцом под крышкой</p></div></div>
+        <div class="why-cap"><span class="ic" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6c5 7 9 11 9 16a9 9 0 0 1-18 0c0-5 4-9 9-16z"/><path d="M8 34 32 8"/></svg></span><div><h3>Герметичная заводская упаковка</h3><p>Бочки и&nbsp;еврокубы с&nbsp;уплотнительным кольцом под крышкой</p></div></div>
       </li>
-      <li class="why-it" data-reveal>
+      <li class="why-it">
         <div class="why-cap solo"><span class="ic" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 14 20 8l12 6v12l-12 6-12-6z"/><path d="M8 14l12 6 12-6M20 20v12"/></svg></span><div><h3>Сначала проба, потом партия</h3><p>Отправим образец, чтобы вы проверили основу в&nbsp;своей рецептуре</p><a class="tara-link" href="#order" data-want="sample">Запросить образец</a></div></div>
       </li>
     </ul>
@@ -163,18 +169,29 @@
 <!-- Поставка -->
 <section class="sec" id="ship" aria-labelledby="ship-h">
   <div class="wrap">
-    <div class="net" data-reveal>
+    <div class="net">
       <div class="net-l">
         <h2 class="net-h" id="ship-h">Отгружаем бочками и&nbsp;еврокубами</h2>
         <p class="net-p">Везём крытым транспортом. После перевозки на&nbsp;морозе дайте продукту сутки в&nbsp;тепле перед вскрытием</p>
-        <ul class="net-stats">
-          <li><b>до&nbsp;−30&nbsp;°С</b><span>перевозка</span></li>
-          <li><b>+5…+30&nbsp;°С</b><span>хранение</span></li>
-          <li><b>9&nbsp;месяцев</b><span>гарантийный срок</span></li>
-        </ul>
         <a class="btn light" href="#order" data-want="cube">Обсудить поставку<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg></a>
       </div>
-      <div class="net-r" aria-hidden="true"><img src="/kaspur-3000/img/pair.webp" alt="" width="1700" height="1263" loading="lazy" decoding="async"></div>
+      <ul class="net-stats">
+        <li><span>01 / Перевозка</span><b>до&nbsp;−30&nbsp;°С</b><p>Всеми видами крытого транспорта</p></li>
+        <li><span>02 / Хранение</span><b>+5…+30&nbsp;°С</b><p>В&nbsp;сухом помещении, с&nbsp;защитой от&nbsp;влаги и&nbsp;солнца</p></li>
+        <li><span>03 / Гарантийный срок</span><b>9&nbsp;месяцев</b><p>Со&nbsp;дня изготовления в&nbsp;невскрытой заводской упаковке</p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="faq" aria-labelledby="faq-h">
+  <div class="wrap faq-grid">
+    <div><h2 class="sec-title" id="faq-h">Перед первой партией</h2><a class="tara-link faq-link" href="#order" data-want="tech">Задать вопрос технологу</a></div>
+    <div class="faq-list">
+      <details><summary>Можно сразу наносить основу как герметик?</summary><p>КАСПУР 3000 БАЗИС — связующее для производства однокомпонентных герметиков, мастик и&nbsp;клеев. Его перерабатывают с&nbsp;пластификаторами, осушенными наполнителями и&nbsp;добавками в&nbsp;вакуумном смесителе</p></details>
+      <details><summary>Как проверить основу в&nbsp;своей рецептуре?</summary><p>Запросите образец перед заказом партии. В&nbsp;форме выберите «Образец» и&nbsp;оставьте контакт для обсуждения пробы</p></details>
+      <details><summary>Что делать после перевозки на&nbsp;морозе?</summary><p>Перед вскрытием выдержите продукт не&nbsp;менее 24&nbsp;часов при (20±5)&nbsp;°С. Нагрев выше 50&nbsp;°С не&nbsp;допускается</p></details>
+      <details><summary>Где посмотреть характеристики и&nbsp;условия работы?</summary><p>В&nbsp;<a href="docs/kaspur-3000-bazis-tds.pdf" target="_blank" rel="noopener">техническом описании, PDF</a>: показатели по&nbsp;ТУ, рекомендации по&nbsp;переработке, меры безопасности, упаковка и&nbsp;хранение</p></details>
     </div>
   </div>
 </section>
@@ -182,12 +199,14 @@
 <!-- Заявка -->
 <section class="sec" id="order" aria-labelledby="order-h">
   <div class="wrap od-grid">
-    <div class="od-l" data-reveal>
+    <div class="od-l">
       <h2 class="sec-title" id="order-h">Запросите образец или&nbsp;цену</h2>
       <p class="od-sub">Ответим в&nbsp;рабочее время, пришлём техническое описание и&nbsp;счёт</p>
       <p class="od-hours">Пн–Чт 8:00–17:00, Пт 8:00–16:00</p>
+      <a class="od-phone" href="tel:+79040408555">+7&nbsp;904&nbsp;040-85-55</a>
     </div>
-    <div class="od-card" data-reveal>
+    <div class="od-card">
+      <p class="demo-notice" id="demo-notice" hidden>Демонстрационная форма: данные не&nbsp;отправляются. Связаться с&nbsp;CASPOL можно <a href="tel:+79040408555">по&nbsp;телефону</a></p>
       <form class="od-form" id="od-form" method="post" novalidate>
         <fieldset class="od-set">
           <legend>Что нужно</legend>
@@ -200,13 +219,14 @@
         </fieldset>
         <div class="od-two">
           <div class="od-f"><label for="od-name">Как вас зовут</label><input id="od-name" name="name" type="text" autocomplete="name" maxlength="80"></div>
-          <div class="od-f"><label for="od-contact">Телефон или почта</label><input id="od-contact" name="contact" type="text" autocomplete="tel" required maxlength="80" placeholder="+7 900 000-00-00" aria-describedby="od-contact-e"><p class="od-e" id="od-contact-e"></p></div>
+          <div class="od-f"><label for="od-contact">Телефон или почта</label><input id="od-contact" name="contact" type="text" autocomplete="email" required maxlength="80" placeholder="Телефон или email" aria-describedby="od-contact-e"><p class="od-e" id="od-contact-e" aria-live="polite"></p></div>
         </div>
         <div class="od-hp" aria-hidden="true"><label for="od-honey">Не заполняйте</label><input id="od-honey" type="text" name="_honey" tabindex="-1" autocomplete="off"></div>
-        <div class="od-agree"><input id="od-agree" name="agree" type="checkbox" required aria-describedby="od-agree-e"><label for="od-agree">Даю согласие на&nbsp;<a href="https://caspol.ru/privacy/" target="_blank" rel="noopener">обработку персональных данных</a></label><p class="od-e" id="od-agree-e"></p></div>
+        <div class="od-agree"><input id="od-agree" name="agree" type="checkbox" required aria-describedby="od-agree-e"><label for="od-agree">Даю согласие на&nbsp;<a href="https://caspol.ru/privacy/" target="_blank" rel="noopener">обработку персональных данных</a></label><p class="od-e" id="od-agree-e" aria-live="polite"></p></div>
         <button class="btn od-go" type="submit">Отправить заявку<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg></button>
       </form>
       <div class="od-done" id="od-done" hidden role="status"><h3>Заявка отправлена</h3><p id="od-done-p">Позвоним или напишем в&nbsp;рабочее время</p></div>
+      <button class="tara-link od-reset" id="od-reset" type="button" hidden>Вернуться к&nbsp;форме</button>
     </div>
   </div>
 </section>
@@ -222,7 +242,7 @@
       </div>
       <div class="ft-col">
         <h2>Разделы</h2>
-        <a href="#tara">Тара</a><a href="#spec">Характеристики</a><a href="#how">Переработка</a><a href="#why">Производство</a><a href="#order">Заявка</a>
+        <a href="#tara">Тара</a><a href="#spec">Характеристики</a><a href="#how">Переработка</a><a href="#why">Производство</a><a href="#faq">Вопросы</a><a href="#order">Заявка</a>
       </div>
       <div class="ft-col">
         <h2>Реквизиты</h2>
@@ -236,6 +256,13 @@
 </footer>
 
 <a class="mbar" id="mbar" href="#order" data-want="sample">Запросить образец</a>
+
+<dialog class="label-dialog" id="label-dialog" aria-labelledby="label-title">
+  <div class="label-head"><div><h2 id="label-title">Этикетка на бочку</h2><p>Проект для согласования</p></div><button class="label-close" type="button" aria-label="Закрыть этикетку" autofocus>Закрыть ×</button></div>
+  <div class="label-scroll"><img id="label-preview" src="/kaspur-3000/img/label-drum.webp" alt="Проект этикетки КАСПУР 3000 БАЗИС на бочку" width="1800" height="720" loading="lazy"></div>
+  <a class="tara-link label-full" id="label-full" href="img/label-drum.webp" target="_blank" rel="noopener">Открыть в полном размере ↗</a>
+  <p class="label-note">Маркировка опасности уточняется по&nbsp;паспорту безопасности. Макет не&nbsp;предназначен для печати до&nbsp;согласования</p>
+</dialog>
 
 </body>
 </html>
