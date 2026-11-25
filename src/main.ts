@@ -89,7 +89,7 @@ form.addEventListener('submit', async (e) => {
     if (!r.ok) throw new Error(String(r.status))
     showDone(false)
   } catch {
-    err('od-contact-e', 'Не получилось отправить. Позвоните: +7 904 040-85-55')
+    err('od-contact-e', 'Не получилось отправить. Позвоните: +7 (950) 347-01-96')
   } finally {
     submit.disabled = false
     submit.firstChild!.textContent = 'Отправить заявку'
