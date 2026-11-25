@@ -1,81 +1,28 @@
 import '@fontsource-variable/geologica' // шрифт со своего сервера, без Google Fonts
 import './style.css'
 
-// ── вкладки тары: карточка перекрашивается, тара меняется ──
-type Tara = 'drum' | 'cube'
-const TARA: Record<Tara, { tone: string; name: string; desc: string; chips: string[]; btn: string; want: string }> = {
-  drum: {
-    tone: 'var(--ta)', name: 'Бочка', desc: 'Стальная бочка 216,5&nbsp;л, масса нетто 200 или 210&nbsp;кг',
-    chips: ['Крышка с&nbsp;уплотнительным кольцом', 'Перевозка до&nbsp;−30&nbsp;°С', 'Хранение 9&nbsp;месяцев'],
-    btn: 'Узнать цену на&nbsp;бочки', want: 'drum',
-  },
-  cube: {
-    tone: 'var(--tb)', name: 'Еврокуб', desc: 'IBC-контейнер, масса нетто 1000&nbsp;кг. Для крупнотоннажных поставок',
-    chips: ['Крышка с&nbsp;уплотнительным кольцом', 'Перевозка до&nbsp;−30&nbsp;°С', 'Хранение 9&nbsp;месяцев'],
-    btn: 'Узнать цену на&nbsp;еврокуб', want: 'cube',
-  },
-}
-const ARROW = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg>'
-const tabs = [...document.querySelectorAll<HTMLButtonElement>('.tab')]
-const card = document.getElementById('tara-card')!
-let activeTara: Tara = 'drum'
-function setTara(id: Tara, focus = false) {
-  activeTara = id
-  const t = TARA[id]
-  tabs.forEach((b) => {
-    const on = b.dataset.tara === id
-    b.setAttribute('aria-selected', String(on)); b.tabIndex = on ? 0 : -1
-    if (on) { card.setAttribute('aria-labelledby', b.id); if (focus) b.focus() }
-  })
-  card.style.setProperty('--tone', t.tone)
-  document.getElementById('tara-name')!.textContent = t.name
-  document.getElementById('tara-desc')!.innerHTML = t.desc
-  document.getElementById('tara-chips')!.innerHTML = t.chips.map((c) => `<li>${c}</li>`).join('')
-  const btn = document.getElementById('tara-btn') as HTMLAnchorElement
-  btn.innerHTML = t.btn + ARROW; btn.dataset.want = t.want
-  document.querySelectorAll<HTMLElement>('.tv').forEach((im) => im.classList.toggle('on', im.dataset.view === id))
-}
-tabs.forEach((b, i) => {
-  b.addEventListener('click', () => setTara(b.dataset.tara as Tara))
-  b.addEventListener('keydown', (e) => {
-    if (!['ArrowRight', 'ArrowLeft', 'Home', 'End'].includes(e.key)) return
-    e.preventDefault()
-    const n = e.key === 'Home' ? tabs[0] : e.key === 'End' ? tabs[tabs.length - 1] : tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length]
-    setTara(n.dataset.tara as Tara, true)
-  })
-})
-
-// ── реальные макеты этикеток, фокус и Escape обрабатывает нативный dialog ──
-const labelDialog = document.getElementById('label-dialog') as HTMLDialogElement
-const labelImage = document.getElementById('label-preview') as HTMLImageElement
-document.getElementById('label-open')!.addEventListener('click', () => {
-  const cube = activeTara === 'cube'
-  document.getElementById('label-title')!.textContent = cube ? 'Этикетка на еврокуб · 60 × 42 см' : 'Этикетка на бочку · 60 × 24 см'
-  labelImage.src = `${import.meta.env.BASE_URL}img/label-${activeTara}.webp`
-  ;(document.getElementById('label-full') as HTMLAnchorElement).href = labelImage.src
-  labelImage.height = cube ? 1260 : 720
-  labelImage.alt = `Проект этикетки КАСПУР 3000 БАЗИС на ${cube ? 'еврокуб' : 'бочку'}`
-  labelDialog.showModal()
-  document.documentElement.classList.add('dialog-open')
-})
-labelDialog.querySelector('button')!.addEventListener('click', () => labelDialog.close())
-labelDialog.addEventListener('click', (e) => {
-  const r = labelDialog.getBoundingClientRect()
-  if (e.target === labelDialog && (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)) labelDialog.close()
-})
-labelDialog.addEventListener('close', () => document.documentElement.classList.remove('dialog-open'))
-
-// плашки на первом экране открывают нужную вкладку тары
-document.querySelectorAll<HTMLElement>('[data-go]').forEach((el) => el.addEventListener('click', () => setTara(el.dataset.go as Tara)))
-
 // ── кнопки ведут в заявку и сразу отмечают, что нужно ──
 const WANT: Record<string, string> = { sample: 'w-sample', drum: 'w-drum', cube: 'w-cube', tech: 'w-tech' }
 document.addEventListener('click', (e) => {
   const a = (e.target as HTMLElement).closest<HTMLElement>('[data-want]')
   if (!a) return
   const r = document.getElementById(WANT[a.dataset.want || ''] || '') as HTMLInputElement | null
-  if (r) r.checked = true
+  if (r) {
+    r.checked = true
+    syncTechField()
+  }
 })
+
+const tech = document.getElementById('w-tech') as HTMLInputElement
+const techField = document.getElementById('tech-field')!
+const question = document.getElementById('od-question') as HTMLTextAreaElement
+function syncTechField() {
+  techField.hidden = !tech.checked
+  question.disabled = !tech.checked
+}
+document.querySelector('.od-set')!.addEventListener('change', syncTechField)
+window.addEventListener('pageshow', syncTechField)
+syncTechField()
 
 // ── заявка ──
 const form = document.getElementById('od-form') as HTMLFormElement
@@ -101,7 +48,7 @@ function valid() {
 function showDone(demo: boolean) {
   form.hidden = true; done.hidden = false
   done.querySelector('h3')!.textContent = demo ? 'Форма проверена' : 'Заявка отправлена'
-  if (demo) document.getElementById('od-done-p')!.textContent = 'Это демо: заявка никуда не ушла. На боевом сайте она придёт в отдел продаж'
+  if (demo) document.getElementById('od-done-p')!.textContent = 'Проверка завершена. В деморежиме данные остаются в браузере'
   reset.hidden = false
   done.tabIndex = -1; done.focus({ preventScroll: true })
   done.scrollIntoView({ block: 'center' })
