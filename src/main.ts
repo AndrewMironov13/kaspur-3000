@@ -45,19 +45,14 @@ function valid() {
   else if (!agree.checked) agree.focus()
   return okContact && agree.checked
 }
-function showDone(demo: boolean) {
+function showDone() {
   form.hidden = true; done.hidden = false
-  done.querySelector('h3')!.textContent = demo ? 'Форма проверена' : 'Заявка отправлена'
-  if (demo) document.getElementById('od-done-p')!.textContent = 'Проверка завершена. В деморежиме данные остаются в браузере'
   reset.hidden = false
   done.tabIndex = -1; done.focus({ preventScroll: true })
   done.scrollIntoView({ block: 'center' })
 }
 const endpoint = (import.meta.env.VITE_FORM_ENDPOINT as string | undefined)?.trim()
-if (!endpoint) {
-  document.getElementById('demo-notice')!.hidden = false
-  submit.firstChild!.textContent = 'Проверить форму'
-}
+  || 'https://formsubmit.co/ajax/info@caspol.ru'
 reset.addEventListener('click', () => {
   done.hidden = true; reset.hidden = true; form.hidden = false
   contact.focus()
@@ -72,9 +67,7 @@ agree.addEventListener('change', () => {
 })
 form.addEventListener('submit', async (e) => {
   e.preventDefault()
-  if (!valid()) return
-  if (honey.value) return
-  if (!endpoint) { showDone(true); return }
+  if (submit.disabled || !valid() || honey.value) return
   submit.disabled = true
   submit.firstChild!.textContent = 'Отправляем…'
   form.setAttribute('aria-busy', 'true')
@@ -87,7 +80,11 @@ form.addEventListener('submit', async (e) => {
       signal: AbortSignal.timeout(15000),
     })
     if (!r.ok) throw new Error(String(r.status))
-    showDone(false)
+    const result = await r.json()
+    if (result?.success !== true && result?.success !== 'true') {
+      throw new Error('FormSubmit did not accept the submission')
+    }
+    showDone()
   } catch {
     err('od-contact-e', 'Не получилось отправить. Позвоните: +7 (950) 347-01-96')
   } finally {

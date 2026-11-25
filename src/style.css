@@ -116,7 +116,6 @@ ul,ol{list-style:none}
 .spec-ph{align-self:stretch;margin-top:auto;border-radius:var(--r);overflow:hidden;aspect-ratio:16/10}
 .spec-ph img{display:block;width:100%;height:100%;object-fit:cover}
 .spec-ph{position:relative}
-.spec-ph figcaption{position:absolute;bottom:12px;left:12px;padding:6px 12px;border-radius:999px;background:var(--surface);color:var(--ink-2);font-size:12px}
 .spec-card{background:var(--surface);border-radius:var(--r);padding:20px 44px 36px}
 .spec{width:100%;border-collapse:collapse}
 .spec th,.spec td{text-align:left;vertical-align:top;padding:22px 20px 22px 0;border-bottom:1px solid var(--line);font-weight:400}
@@ -181,8 +180,6 @@ ul,ol{list-style:none}
 .od-hours{margin-top:10px;font-family:var(--fd);font-weight:500;text-transform:uppercase;letter-spacing:.06em;font-size:15px}
 .od-phone{display:inline-block;margin-top:28px;font-family:var(--fd);font-size:clamp(26px,3vw,40px);font-weight:500;text-decoration:none}
 .od-phone:hover{text-decoration:underline;text-underline-offset:6px}
-.demo-notice{margin-bottom:24px;padding:16px 20px;background:var(--grey);border-radius:16px;font-size:14px;color:var(--ink-2)}
-.demo-notice a{text-underline-offset:3px}
 .od-reset{margin-top:20px}
 .od-go:disabled{background:var(--grey);color:var(--ink-2);cursor:wait}
 .od-card{background:var(--surface);border-radius:var(--r);padding:40px 44px 44px}
@@ -218,7 +215,6 @@ ul,ol{list-style:none}
 .ft-col a:hover{color:#fff;text-decoration-color:#fff}
 .ft-tel{font-family:var(--fd);font-weight:500;font-size:34px;line-height:1.1;text-decoration:none;white-space:nowrap;color:#fff}
 .ft-low{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:8px 28px;padding-top:26px;border-top:1px solid var(--w-line);font-size:14px;color:var(--w-2)}
-.ft-low a:last-child{margin-left:auto}
 
 /* Вопросы перед заказом */
 .faq-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:64px}
@@ -396,7 +392,6 @@ html.lt .ft-low{border-top-color:var(--line);color:var(--ink-2)}
   .od-pills label{min-height:46px;padding:0 16px;font-size:15px}
   .ft-box{grid-template-columns:minmax(0,1fr);padding:34px 24px 96px;gap:28px}
   .ft-tel{font-size:28px}
-  .ft-low a:last-child{margin-left:0}
   .mbar{position:fixed;left:14px;right:14px;bottom:max(12px,env(safe-area-inset-bottom,0px));z-index:45;display:flex;align-items:center;justify-content:center;min-height:54px;border-radius:999px;background:var(--brand);color:#fff;font-weight:600;text-decoration:none;box-shadow:0 14px 30px -12px rgba(0,0,0,.6);transform:translateY(140%);transition:transform .35s var(--ease)}
   .mbar.on{transform:none}
 }
